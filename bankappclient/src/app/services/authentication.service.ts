@@ -40,4 +40,22 @@ export class AuthenticationService {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('authenticatedUser');
   }
+
+  getUserRoles(): string[] {
+    const token = this.getToken();
+    if (!token) {
+      return [];
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.roles || [];
+    } catch {
+      return [];
+    }
+  }
+
+  isManager(): boolean {
+    return this.getUserRoles().includes('ROLE_MGR');
+  }
 }

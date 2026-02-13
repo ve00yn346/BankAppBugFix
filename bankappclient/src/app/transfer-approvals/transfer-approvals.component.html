@@ -1,0 +1,30 @@
+<section class="panel">
+  <h3 class="page-title">Pending Transfer Approvals</h3>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="pendingTransfers.length === 0" class="text-muted">No pending transfers.</div>
+
+  <table *ngIf="pendingTransfers.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Request Id</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Amount</th>
+        <th>Initiated By</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transfer of pendingTransfers">
+        <td>{{ transfer.requestId }}</td>
+        <td>{{ transfer.fromAccountId }}</td>
+        <td>{{ transfer.toAccountId }}</td>
+        <td>{{ transfer.amount }}</td>
+        <td>{{ transfer.initiatedBy }}</td>
+        <td><button class="btn btn-sm btn-success" (click)="approve(transfer.requestId)">Approve</button></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

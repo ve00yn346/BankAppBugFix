@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
@@ -7,24 +8,25 @@ import { FormsModule, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-withdraw',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './withdraw.component.html',
   styles: ``
 })
 export class WithdrawComponent {
-
-  accountId: number = 0;
-  amount: number = 0;
-
+  accountId: number | null = null;
+  amount: number | null = null;
+  errorMessage = '';
 
   constructor(
     private accountService: AccountService,
     private router: Router
   ) {}
 
-
   onSubmit(form: NgForm): void {
-    if (form.invalid) {
+    this.errorMessage = '';
+
+    if (form.invalid || this.accountId === null || this.amount === null) {
+      form.control.markAllAsTouched();
       return;
     }
 
@@ -33,9 +35,11 @@ export class WithdrawComponent {
       amount: this.amount
     };
 
-
-    this.accountService.withdraw(request).subscribe(() => {
-      this.router.navigate(['/accounts']);
+    this.accountService.withdraw(request).subscribe({
+      next: () => this.router.navigate(['/accounts']),
+      error: (err) => {
+        this.errorMessage = err?.error?.error || err?.error?.amount || err?.error?.accountId || 'Withdrawal failed';
+      }
     });
   }
 }

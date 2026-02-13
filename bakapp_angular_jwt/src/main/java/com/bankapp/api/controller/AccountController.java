@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bankapp.api.request.AccountDetailUpdateRequest;
 import com.bankapp.api.request.AccountRequest;
 import com.bankapp.api.response.AccountResponse;
-import com.bankapp.entities.Account;
 import com.bankapp.service.AccountService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "v1/accounts")
@@ -35,7 +36,7 @@ public class AccountController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<AccountResponse> addAccount(@RequestBody AccountRequest accountRequest) {
+	public ResponseEntity<AccountResponse> addAccount(@Valid @RequestBody AccountRequest accountRequest) {
 	    AccountResponse saved = accountService.addAccount(accountRequest);
 	    return ResponseEntity
 	            .status(HttpStatus.CREATED)
@@ -56,7 +57,7 @@ public class AccountController {
 	
 	@PutMapping(path = "{id}")
 	public ResponseEntity<AccountResponse> updateAccount(@PathVariable(name = "id") int id, 
-			@RequestBody AccountDetailUpdateRequest accountDetailUpdateRequest) {
+			@Valid @RequestBody AccountDetailUpdateRequest accountDetailUpdateRequest) {
 	    AccountResponse updated = accountService.updateAccount(id, accountDetailUpdateRequest);
 	    return ResponseEntity
 	            .status(HttpStatus.OK)
