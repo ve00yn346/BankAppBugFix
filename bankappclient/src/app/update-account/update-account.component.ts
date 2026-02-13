@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Account } from '../model/account';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../services/account.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-update-account',
@@ -27,7 +27,11 @@ export class UpdateAccountComponent {
     });
   }
 
-  onSubmit(): void {
+  onSubmit(form: NgForm): void {
+    if (form.invalid) {
+      return;
+    }
+
     this.accountService.updateAccount(this.id, this.account).subscribe(() => {
       this.goToAccountList();
     });

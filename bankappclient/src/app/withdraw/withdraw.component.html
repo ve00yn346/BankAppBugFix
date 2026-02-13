@@ -1,17 +1,17 @@
 <section class="panel form-panel">
   <h3 class="page-title">Withdraw Funds</h3>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #withdrawForm="ngForm" (ngSubmit)="onSubmit(withdrawForm)" class="d-grid gap-3">
     <div>
       <label class="form-label">Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="accountId" name="accountId" required>
+      <input type="number" class="form-control" [(ngModel)]="accountId" name="accountId" required min="1">
     </div>
 
     <div>
       <label class="form-label">Amount</label>
-      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required>
+      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required min="0">
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit Withdrawal</button>
+    <button type="submit" class="btn btn-primary" [disabled]="withdrawForm.invalid">Submit Withdrawal</button>
   </form>
 </section>

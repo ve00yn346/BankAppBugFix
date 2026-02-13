@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { WithdrawRequest } from '../model/withdraw-request';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-withdraw',
@@ -23,7 +23,11 @@ export class WithdrawComponent {
   ) {}
 
 
-  onSubmit(): void {
+  onSubmit(form: NgForm): void {
+    if (form.invalid) {
+      return;
+    }
+
     const request: WithdrawRequest = {
       accountId: this.accountId,
       amount: this.amount

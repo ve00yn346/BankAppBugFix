@@ -1,22 +1,22 @@
 <section class="panel form-panel">
   <h3 class="page-title">Transfer Funds</h3>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #transferForm="ngForm" (ngSubmit)="onSubmit(transferForm)" class="d-grid gap-3">
     <div>
       <label class="form-label">From Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="fromAccountId" name="fromAccountId" required>
+      <input type="number" class="form-control" [(ngModel)]="fromAccountId" name="fromAccountId" required min="1">
     </div>
 
     <div>
       <label class="form-label">To Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="toAccountId" name="toAccountId" required>
+      <input type="number" class="form-control" [(ngModel)]="toAccountId" name="toAccountId" required min="1">
     </div>
 
     <div>
       <label class="form-label">Amount</label>
-      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required>
+      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required min="0">
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit Transfer</button>
+    <button type="submit" class="btn btn-primary" [disabled]="transferForm.invalid">Submit Transfer</button>
   </form>
 </section>

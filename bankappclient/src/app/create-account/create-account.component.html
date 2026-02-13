@@ -1,27 +1,27 @@
 <section class="panel form-panel">
   <h3 class="page-title">Create New Account</h3>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)" class="d-grid gap-3">
     <div>
       <label class="form-label">Name</label>
-      <input type="text" class="form-control" [(ngModel)]="account.name" name="name">
+      <input type="text" class="form-control" [(ngModel)]="account.name" name="name" required pattern="^[A-Za-z][A-Za-z ]*$">
     </div>
 
     <div>
       <label class="form-label">Initial Balance</label>
-      <input type="number" class="form-control" [(ngModel)]="account.balance" name="balance">
+      <input type="number" class="form-control" [(ngModel)]="account.balance" name="balance" required min="0">
     </div>
 
     <div>
       <label class="form-label">Email</label>
-      <input type="email" class="form-control" [(ngModel)]="account.email" name="email">
+      <input type="email" class="form-control" [(ngModel)]="account.email" name="email" required>
     </div>
 
     <div>
       <label class="form-label">Phone</label>
-      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone">
+      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone" required pattern="^[0-9]+$" maxlength="15">
     </div>
 
-    <button type="submit" class="btn btn-primary">Create Account</button>
+    <button type="submit" class="btn btn-primary" [disabled]="accountForm.invalid">Create Account</button>
   </form>
 </section>
