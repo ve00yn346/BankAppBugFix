@@ -1,0 +1,27 @@
+<section class="panel form-panel">
+  <h3 class="page-title">Create New Account</h3>
+
+  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+    <div>
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="account.name" name="name">
+    </div>
+
+    <div>
+      <label class="form-label">Initial Balance</label>
+      <input type="number" class="form-control" [(ngModel)]="account.balance" name="balance">
+    </div>
+
+    <div>
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" [(ngModel)]="account.email" name="email">
+    </div>
+
+    <div>
+      <label class="form-label">Phone</label>
+      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Account</button>
+  </form>
+</section>

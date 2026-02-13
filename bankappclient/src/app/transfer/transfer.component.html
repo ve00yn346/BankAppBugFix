@@ -1,0 +1,22 @@
+<section class="panel form-panel">
+  <h3 class="page-title">Transfer Funds</h3>
+
+  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+    <div>
+      <label class="form-label">From Account Id</label>
+      <input type="number" class="form-control" [(ngModel)]="fromAccountId" name="fromAccountId" required>
+    </div>
+
+    <div>
+      <label class="form-label">To Account Id</label>
+      <input type="number" class="form-control" [(ngModel)]="toAccountId" name="toAccountId" required>
+    </div>
+
+    <div>
+      <label class="form-label">Amount</label>
+      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Transfer</button>
+  </form>
+</section>

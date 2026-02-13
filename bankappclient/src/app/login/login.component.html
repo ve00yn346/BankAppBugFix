@@ -1,0 +1,21 @@
+<section class="panel form-panel mt-4">
+  <h3 class="page-title">Sign in to TrustBank</h3>
+
+  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+    <div>
+      <label class="form-label">Username</label>
+      <input type="text" class="form-control" [(ngModel)]="username" name="username" required>
+    </div>
+
+    <div>
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" [(ngModel)]="password" name="password" required>
+    </div>
+
+    <div class="alert alert-danger py-2 mb-0" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</section>

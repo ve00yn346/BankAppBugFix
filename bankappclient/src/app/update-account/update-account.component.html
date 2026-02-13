@@ -1,0 +1,29 @@
+<section class="panel form-panel">
+  <h3 class="page-title">Update Account Contact</h3>
+
+  <p class="info-note">Name and balance are read-only for safety. Only contact information can be edited.</p>
+
+  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+    <div>
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="account.name" name="name" readonly>
+    </div>
+
+    <div>
+      <label class="form-label">Balance</label>
+      <input type="number" class="form-control" [(ngModel)]="account.balance" name="balance" readonly>
+    </div>
+
+    <div>
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" [(ngModel)]="account.email" name="email" required>
+    </div>
+
+    <div>
+      <label class="form-label">Phone</label>
+      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </form>
+</section>

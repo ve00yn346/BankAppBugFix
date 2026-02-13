@@ -1,0 +1,25 @@
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand-block">
+      <span class="brand-badge">🏦</span>
+      <div>
+        <h1 class="brand-title">TrustBank Console</h1>
+        <p class="brand-subtitle">Secure account operations dashboard</p>
+      </div>
+    </div>
+
+    <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
+  </header>
+
+  <nav class="menu-bar">
+    <a routerLink="accounts" routerLinkActive="active" class="menu-link">Account List</a>
+    <a routerLink="create-account" routerLinkActive="active" class="menu-link">Create Account</a>
+    <a routerLink="deposit" routerLinkActive="active" class="menu-link">Deposit</a>
+    <a routerLink="withdraw" routerLinkActive="active" class="menu-link">Withdraw</a>
+    <a routerLink="transfer" routerLinkActive="active" class="menu-link">Transfer</a>
+  </nav>
+
+  <main class="page-wrap">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,17 @@
+<section class="panel form-panel">
+  <h3 class="page-title">Withdraw Funds</h3>
+
+  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+    <div>
+      <label class="form-label">Account Id</label>
+      <input type="number" class="form-control" [(ngModel)]="accountId" name="accountId" required>
+    </div>
+
+    <div>
+      <label class="form-label">Amount</label>
+      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Withdrawal</button>
+  </form>
+</section>
