@@ -17,6 +17,7 @@
     <a routerLink="deposit" routerLinkActive="active" class="menu-link">Deposit</a>
     <a routerLink="withdraw" routerLinkActive="active" class="menu-link">Withdraw</a>
     <a routerLink="transfer" routerLinkActive="active" class="menu-link">Transfer</a>
+    <a *ngIf="isManager" routerLink="transfer-approvals" routerLinkActive="active" class="menu-link">Transfer Approvals</a>
   </nav>
 
   <main class="page-wrap">

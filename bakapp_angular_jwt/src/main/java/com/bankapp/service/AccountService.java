@@ -6,7 +6,8 @@ import java.util.List;
 import com.bankapp.api.request.AccountDetailUpdateRequest;
 import com.bankapp.api.request.AccountRequest;
 import com.bankapp.api.response.AccountResponse;
-import com.bankapp.entities.Account;
+import com.bankapp.api.response.PendingTransferResponse;
+import com.bankapp.api.response.TransferResponse;
 
 public interface AccountService {
 	
@@ -20,7 +21,11 @@ public interface AccountService {
     
     public AccountResponse updateAccount(int id, AccountDetailUpdateRequest accountDetailUpdateRequest);
 
-    public void transfer(int fromAccId, int toAccId, BigDecimal amount);
+    public TransferResponse transfer(int fromAccId, int toAccId, BigDecimal amount);
+
+    public List<PendingTransferResponse> getPendingTransfers();
+
+    public void approveTransfer(long requestId);
     
     public void deposit(int accId, BigDecimal amount);
     

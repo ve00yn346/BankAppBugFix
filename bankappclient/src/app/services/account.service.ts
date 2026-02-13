@@ -5,6 +5,8 @@ import { Account } from '../model/account';
 import { DepositRequest } from '../model/deposit-request';
 import { WithdrawRequest } from '../model/withdraw-request';
 import { TransferRequest } from '../model/transfer-request';
+import { TransferResponse } from '../model/transfer-response';
+import { PendingTransfer } from '../model/pending-transfer';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +43,15 @@ export class AccountService {
 }
 
   transfer(request: TransferRequest) {
-    return this.http.put<void>(`${this.baseUrl2}/transfer`, request);
+    return this.http.put<TransferResponse>(`${this.baseUrl2}/transfer`, request);
+  }
+
+  getPendingTransfers() {
+    return this.http.get<PendingTransfer[]>(`${this.baseUrl2}/transfer/pending`);
+  }
+
+  approveTransfer(requestId: number) {
+    return this.http.put<void>(`${this.baseUrl2}/transfer/approve/${requestId}`, {});
   }
 
 }

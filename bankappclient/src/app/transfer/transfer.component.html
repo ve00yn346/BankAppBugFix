@@ -1,21 +1,28 @@
 <section class="panel form-panel">
   <h3 class="page-title">Transfer Funds</h3>
 
-  <form #transferForm="ngForm" (ngSubmit)="onSubmit(transferForm)" class="d-grid gap-3">
+  <form #transferForm="ngForm" (ngSubmit)="onSubmit(transferForm)" class="d-grid gap-3" novalidate>
     <div>
       <label class="form-label">From Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="fromAccountId" name="fromAccountId" required min="1">
+      <input type="number" class="form-control" [(ngModel)]="fromAccountId" name="fromAccountId" required min="1" #fromAccountIdCtrl="ngModel">
+      <small class="text-danger" *ngIf="fromAccountIdCtrl.invalid && fromAccountIdCtrl.touched">Enter a valid source account id.</small>
     </div>
 
     <div>
       <label class="form-label">To Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="toAccountId" name="toAccountId" required min="1">
+      <input type="number" class="form-control" [(ngModel)]="toAccountId" name="toAccountId" required min="1" #toAccountIdCtrl="ngModel">
+      <small class="text-danger" *ngIf="toAccountIdCtrl.invalid && toAccountIdCtrl.touched">Enter a valid destination account id.</small>
     </div>
 
     <div>
       <label class="form-label">Amount</label>
-      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required min="0">
+      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required min="0.01" step="0.01" #amountCtrl="ngModel">
+      <small class="text-danger" *ngIf="amountCtrl.invalid && amountCtrl.touched">Amount must be greater than 0.</small>
+      <small class="text-warning" *ngIf="amount && amount >= 200">For clerk users, transfers ≥ 200 will go for manager approval.</small>
     </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <div *ngIf="infoMessage" class="alert alert-info">{{ infoMessage }}</div>
 
     <button type="submit" class="btn btn-primary" [disabled]="transferForm.invalid">Submit Transfer</button>
   </form>

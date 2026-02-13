@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
@@ -7,13 +8,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-deposit',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './deposit.component.html',
   styles: ``
 })
 export class DepositComponent {
- accountId: number = 0;
-  amount: number = 0;
+  accountId: number | null = null;
+  amount: number | null = null;
+  errorMessage = '';
 
   constructor(
     private accountService: AccountService,
@@ -21,7 +23,10 @@ export class DepositComponent {
   ) {}
 
   onSubmit(form: NgForm): void {
-    if (form.invalid) {
+    this.errorMessage = '';
+
+    if (form.invalid || this.accountId === null || this.amount === null) {
+      form.control.markAllAsTouched();
       return;
     }
 
@@ -30,9 +35,11 @@ export class DepositComponent {
       amount: this.amount
     };
 
-    this.accountService.deposit(request).subscribe(() => {
-      this.router.navigate(['/accounts']);
+    this.accountService.deposit(request).subscribe({
+      next: () => this.router.navigate(['/accounts']),
+      error: (err) => {
+        this.errorMessage = err?.error?.error || err?.error?.amount || err?.error?.accountId || 'Deposit failed';
+      }
     });
   }
-  
 }

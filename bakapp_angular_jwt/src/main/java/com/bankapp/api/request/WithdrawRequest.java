@@ -1,10 +1,14 @@
 package com.bankapp.api.request;
 
 import java.math.BigDecimal;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-public record WithdrawRequest ( Integer accountId,BigDecimal amount) {}
+public record WithdrawRequest(
+		@NotNull(message = "{transaction.accountId.absent}")
+		@Positive(message = "{transaction.accountId.positive}")
+		Integer accountId,
+		@NotNull(message = "{transaction.amount.absent}")
+		@Positive(message = "{transaction.amount.positive}")
+		BigDecimal amount
+) {}

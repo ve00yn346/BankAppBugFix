@@ -8,6 +8,7 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
 import { TransferComponent } from './transfer/transfer.component';
 import { LoginComponent } from './login/login.component';
 import { authGuard } from './guards/auth.guard';
+import { TransferApprovalsComponent } from './transfer-approvals/transfer-approvals.component';
 
 export const routes: Routes = [
    { path: 'login', component: LoginComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
    { path: 'deposit', component: DepositComponent, canActivate: [authGuard] },
    { path: 'withdraw', component: WithdrawComponent, canActivate: [authGuard] },
    { path: 'transfer', component: TransferComponent,canActivate: [authGuard] },
+   { path: 'transfer-approvals', component: TransferApprovalsComponent, canActivate: [authGuard] },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
