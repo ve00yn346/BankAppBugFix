@@ -11,34 +11,29 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   authenticate(username: string, password: string): Observable<any> {
-    const body = {
-      username: username,
-      password: password
-    };
+    this.clearSession();
 
-    return this.http.post<any>(this.authUrl, body).pipe(
-      tap(response => {
-        // assuming backend returns { token: "..." }
-        sessionStorage.setItem('token', response.token);
-        sessionStorage.setItem('authenticatedUser', username);
+    return this.http.post<any>(this.authUrl, { username, password }).pipe(
+      tap({
+        next: response => {
+          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('authenticatedUser', username);
+        },
+        error: () => this.clearSession()
       })
     );
   }
-
 
   isUserLoggedIn(): boolean {
     return sessionStorage.getItem('token') !== null;
   }
 
-
   getToken(): string | null {
     return sessionStorage.getItem('token');
   }
 
-
   logout(): void {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('authenticatedUser');
+    this.clearSession();
   }
 
   getUserRoles(): string[] {
@@ -49,7 +44,7 @@ export class AuthenticationService {
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.roles || [];
+      return Array.isArray(payload.roles) ? payload.roles : [];
     } catch {
       return [];
     }
@@ -57,5 +52,10 @@ export class AuthenticationService {
 
   isManager(): boolean {
     return this.getUserRoles().includes('ROLE_MGR');
+  }
+
+  private clearSession(): void {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('authenticatedUser');
   }
 }
