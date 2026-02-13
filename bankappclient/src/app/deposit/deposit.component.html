@@ -1,17 +1,17 @@
 <section class="panel form-panel">
   <h3 class="page-title">Deposit Funds</h3>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #depositForm="ngForm" (ngSubmit)="onSubmit(depositForm)" class="d-grid gap-3">
     <div>
       <label class="form-label">Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="accountId" name="accountId" required>
+      <input type="number" class="form-control" [(ngModel)]="accountId" name="accountId" required min="1">
     </div>
 
     <div>
       <label class="form-label">Amount</label>
-      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required>
+      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required min="0">
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit Deposit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="depositForm.invalid">Submit Deposit</button>
   </form>
 </section>

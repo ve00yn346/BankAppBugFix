@@ -3,7 +3,7 @@
 
   <p class="info-note">Name and balance are read-only for safety. Only contact information can be edited.</p>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)" class="d-grid gap-3">
     <div>
       <label class="form-label">Name</label>
       <input type="text" class="form-control" [(ngModel)]="account.name" name="name" readonly>
@@ -21,9 +21,9 @@
 
     <div>
       <label class="form-label">Phone</label>
-      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone" required>
+      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone" required pattern="^[0-9]+$" maxlength="15">
     </div>
 
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn btn-primary" [disabled]="accountForm.invalid">Save Changes</button>
   </form>
 </section>
